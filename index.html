@@ -517,8 +517,8 @@
         <section class="cta-section" aria-labelledby="cta-title">
           <div class="cta-content">
             <h2 id="cta-title">
-              <span>Sua ideia já tem valor. Agora</span>
-              <span>ela precisa parecer.</span>
+              <span>Sua ideia já tem valor. <span class="cta-title-emphasis neon-flicker-target">Agora</span></span>
+              <span class="neon-flicker-target">ela precisa parecer.</span>
             </h2>
 
             <p>
@@ -776,17 +776,12 @@
         const revealObserver = new IntersectionObserver(
           (entries) => {
             entries.forEach((entry) => {
-              if (!entry.isIntersecting) {
-                return;
-              }
-
-              entry.target.classList.add("is-visible");
-              revealObserver.unobserve(entry.target);
+              entry.target.classList.toggle("is-visible", entry.isIntersecting);
             });
           },
           {
-            threshold: 0.28,
-            rootMargin: "0px 0px -14% 0px",
+            threshold: 0.18,
+            rootMargin: "-8% 0px -12% 0px",
           }
         );
 
@@ -802,19 +797,16 @@
           const footerRevealObserver = new IntersectionObserver(
             (entries) => {
               entries.forEach((entry) => {
-                if (!entry.isIntersecting) {
-                  return;
-                }
-
                 cinematicFooter
                   .querySelectorAll(".scroll-reveal")
-                  .forEach((element) => element.classList.add("is-visible"));
-                footerRevealObserver.unobserve(entry.target);
+                  .forEach((element) =>
+                    element.classList.toggle("is-visible", entry.isIntersecting)
+                  );
               });
             },
             {
-              threshold: 0.18,
-              rootMargin: "0px 0px -10% 0px",
+              threshold: 0.16,
+              rootMargin: "-6% 0px -10% 0px",
             }
           );
 
